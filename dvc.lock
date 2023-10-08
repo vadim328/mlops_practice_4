@@ -13,13 +13,13 @@ stages:
       size: 229201
     - path: scripts/data_processing/features.py
       hash: md5
-      md5: aab0f2c53b04c34d5297b3af755afc2a
-      size: 3332
+      md5: 8d3c4d932dd846e7abacd4aaea37dfe5
+      size: 3363
     outs:
     - path: data/features
       hash: md5
-      md5: 5cf5dea4348e19075d67c05a061bfb38.dir
-      size: 330088
+      md5: 5953b6ec0f28ac3a6c463b5fe7a5799a.dir
+      size: 325020
       nfiles: 2
   prepared:
     cmd: python3 scripts/data_processing/prepared.py
@@ -30,15 +30,38 @@ stages:
       size: 65988
     - path: data/features/train.csv
       hash: md5
-      md5: b1b827b708a03878e9ea2dd9689a872a
-      size: 264100
+      md5: 9d545e6cecd6279f4701ac89108b6a39
+      size: 259032
     - path: scripts/data_processing/prepared.py
       hash: md5
-      md5: 2098b09bc14e6ad6865d3b1881aa3181
-      size: 1506
+      md5: a4e9adcf2e3968c4710bff1b64ac4a88
+      size: 1455
     outs:
     - path: data/prepared
       hash: md5
-      md5: 002fa909444b1101b6881a668bcc7f1e.dir
-      size: 389660
+      md5: fb0d7b1f6a2dcee31faa9e3c9b92c5f3.dir
+      size: 370978
       nfiles: 2
+  model-training:
+    cmd: python3 scripts/model_scripts/model_training.py
+    deps:
+    - path: data/prepared/test.csv
+      hash: md5
+      md5: f0eb3bd6fbfcb86a3c7ac27b0cbdcdb2
+      size: 69562
+    - path: data/prepared/train.csv
+      hash: md5
+      md5: defab92f96b0741c957fd89643614119
+      size: 301416
+    - path: scripts/model_scripts/model_training.py
+      hash: md5
+      md5: 3ad30947064e12800313d12aa5f0f0a0
+      size: 703
+    params:
+      params.yaml:
+        estimator.n_estimators: 300
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 0b4051de6bcb0729a767b3b88abdbd3e
+      size: 640878

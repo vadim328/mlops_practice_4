@@ -21,14 +21,15 @@ def work_fith_data(df, key):
   elif key == 1: # Ordinal encoding для категориальных данных
     ore = OrdinalEncoder()
     cat_df = pd.DataFrame(ore.fit_transform(df[category_columns]))
+    cat_df.columns = category_columns
 
   return num_df.join(cat_df)
   
 train_df = pd.read_csv('data/features/train.csv', sep=',')
 test_df = pd.read_csv('data/features/test.csv', sep=',')
 
-train_df = work_fith_data(train_df.drop("outcome", axis = 1), 1) # датафрейм для обучения
-test_df = work_fith_data(test_df, 1) # обработанный тестовый датафрейм
+train_df = work_fith_data(train_df, 1) # датафрейм для обучения
+test_df = work_fith_data(test_df, 1)
 
 os.mkdir("data/prepared")
 

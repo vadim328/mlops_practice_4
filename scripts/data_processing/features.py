@@ -2,6 +2,11 @@ import pandas as pd
 import numpy as np
 import os
 
+
+train_df = pd.read_csv('data/raw/train.csv', sep=',')
+test_df = pd.read_csv('data/raw/test.csv', sep=',')
+test_df['id'] = np.nan
+
 def pred_obrabotka(df):
   df.loc[df['capillary_refill_time'] == '3', 'capillary_refill_time'] = np.nan
   df.loc[(df['pain'] == 'slight') | (df['pain'] == 'moderate'), 'pain'] = 'mild_pain'
@@ -33,7 +38,7 @@ def new_priznak(df):
 
   df['nasogastric_reflux_ph'] = np.where((df['nasogastric_reflux_ph'] <= 2), 'normal', 'many') # nasogastric_reflux_ph
 
-  df.drop(['lesion_2', 'lesion_3', 'rectal_temp'], axis= 1, inplace = True) # Убираем неликвидные признаки
+  df.drop(['id', 'lesion_2', 'lesion_3', 'rectal_temp'], axis= 1, inplace = True) # Убираем неликвидные признаки
 
   return df
 
@@ -52,8 +57,6 @@ def not_nan(df):
 
   return df
   
-train_df = pd.read_csv('data/raw/train.csv', sep=',')
-test_df = pd.read_csv('data/raw/test.csv', sep=',')
 
 train_df = pred_obrabotka(train_df)
 test_df = pred_obrabotka(test_df)
