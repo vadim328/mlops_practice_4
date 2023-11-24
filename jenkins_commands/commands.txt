@@ -1,0 +1,21 @@
+For Test
+sudo dvc pull
+scp -r /var/lib/jenkins/workspace/Horse/data/prepared/test.csv stage_srv@192.168.135.133:~/Horse/datasets/test.csv
+scp -r /var/lib/jenkins/workspace/Horse/models/model.pkl stage_srv@192.168.135.133:~/Horse/models/model.pkl
+scp -r /var/lib/jenkins/workspace/Horse/scripts/tests/test.py stage_srv@192.168.135.133:~/Horse/tests/test.py
+scp -r /var/lib/jenkins/workspace/Horse/requirements.txt stage_srv@192.168.135.133:~/Horse/requirements.txt
+
+ssh stage_srv@192.168.135.133 pip install -r /home/stage_srv/Horse/requirements.txt
+ssh stage_srv@192.168.135.133 pip install pytest
+ssh stage_srv@192.168.135.133 python3 -m pytest --rootdir=/home/stage_srv/Horse/tests /home/stage_srv/Horse/tests/test.py
+
+For Web-server
+
+scp -r /var/lib/jenkins/workspace/Horse/data/prepared/test.csv prod_srv@192.168.135.130:~/Horse/datasets/test.csv
+scp -r /var/lib/jenkins/workspace/Horse/models/model.pkl prod_srv@192.168.135.130:~/Horse/models/model.pkl
+scp -r /var/lib/jenkins/workspace/Horse/scripts/production/app.py prod_srv@192.168.135.130:~/Horse/scripts/production/app.py
+scp -r /var/lib/jenkins/workspace/Horse/requirements.txt prod_srv@192.168.135.130:~/Horse/requirements.txt
+
+ssh prod_srv@192.168.135.130 pip install -r /home/prod_srv/Horse/requirements.txt
+
+ansible-playbook /var/lib/jenkins/workspace/Horse/ansible/flask_cmd.yml
