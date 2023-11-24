@@ -10,7 +10,7 @@ Practical work of the third semester of the master's program
 - «Эксплуатация модели»
 - «Сервер администратора»
 
-![Инфраструктура](MLOps4.1.image_1.png)
+![Инфраструктура](image/MLOps4.1.image_1.png)
 
 GIT и DVC:
 - sudo apt install git
