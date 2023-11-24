@@ -1,0 +1,14 @@
+---
+- hosts: ansible_prod_srv
+  tasks:
+    - name: Copy flask app file to the prod_srv production server
+      copy:
+        src: /var/lib/jenkins/workspace/Horse/scripts/production/app.py
+        dest: /home/prod_srv/Horse/scripts/production/app.py
+    - name: Installing flask module
+      pip:
+        executable: pip3
+        name: flask
+        state: latest
+    - name: run flask app
+      shell: nohup python3 /home/prod_srv/Horse/scripts/production/app.py > log.txt 2>&1

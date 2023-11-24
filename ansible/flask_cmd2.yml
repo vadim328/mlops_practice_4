@@ -1,0 +1,5 @@
+---
+- hosts: ansible_prod_srv
+  tasks:
+    - name: See directory path
+      shell: pwd >> pwd.txt
